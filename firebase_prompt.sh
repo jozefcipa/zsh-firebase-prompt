@@ -1,5 +1,10 @@
 firebase_prompt() {
-    current_project=$(cat ~/.config/configstore/firebase-tools.json | \
+    file=~/.config/configstore/firebase-tools.json
+    if [ ! -f "$file" ]; then
+        return
+    fi
+    
+    current_project=$(cat $file | \
         jq --arg currentDir $(pwd) << EOL '
         [
             .activeProjects
